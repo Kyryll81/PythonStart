@@ -1,27 +1,19 @@
-from string import ascii_lowercase, ascii_uppercase
+from collections import defaultdict, Counter
 
 
-def shift_words(text: str, shift: int) -> str:
-    if not isinstance(shift, int):
-        raise TypeError("Wrong usage of shift.")
+def find_first_unique_char(text: str) -> str | None:
+    if not isinstance(text, str):
+        raise TypeError()
     
-    if isinstance(text, dict) or isinstance(text, list):
-        raise TypeError("Text can't be list or dict.")
+    cache_text: defaultdict = defaultdict(dict)
     
-    output_text: str = ""
-    letter_shift = lambda l, alphabet: alphabet[(alphabet.find(l) + shift) % len(alphabet)]
-
-    for letter in text:
-        if letter.isalpha():
-            alphabet: str = ascii_lowercase if letter.islower() else ascii_uppercase
-            output_text += letter_shift(letter, alphabet)
-        else:
-            output_text += letter
-    return output_text
-
-
-if __name__ == '__main__':
-    test_string = "abcd efgh"
-    shifted_text = shift_words(test_string, 2)
-    print(f"Оригінал: '{test_string}'")
-    print(f"Результат: '{shifted_text}'")
+    if text in cache_text.keys():
+        return cache_text[text]
+    
+    for key, value in Counter(text).items():
+        if value == 1:
+            cache_text[text] = key
+            return cache_text[text]
+    
+    cache_text[text] = None
+    return cache_text[text]        

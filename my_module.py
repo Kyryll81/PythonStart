@@ -1,19 +1,35 @@
-from collections import defaultdict, Counter
+class Car:
+    def __init__(self, made: str, model: str, year: str, engine_volume: float, fuel_efficiency: int) -> None:
+        self.made = made
+        self.model = model
+        self.year = year
+        self.engine_volume = engine_volume
+        self.fuel_efficiency = fuel_efficiency
+    
+    
+    def __str__(self) -> str:
+        return f"Автомобіль: {self.year} {self.made} {self.fuel_efficiency}."
+    
+    
+    def __repr__(self) -> str:
+        return f'Car(made="{self.made}", model="{self.model}", year="{self.year}", engine_volume={self.engine_volume}, fuel_efficiency={self.fuel_efficiency})'
+    
+    
+    def __eq__(self, other) -> bool:
+        return self.made == other.made and self.model == other.model
 
 
-def find_first_unique_char(text: str) -> str | None:
-    if not isinstance(text, str):
-        raise TypeError()
+    def calculate_fuel_consumption(self, distance_km: int) -> float:
+        return self.fuel_efficiency / 100 * distance_km
     
-    cache_text: defaultdict = defaultdict(dict)
     
-    if text in cache_text.keys():
-        return cache_text[text]
-    
-    for key, value in Counter(text).items():
-        if value == 1:
-            cache_text[text] = key
-            return cache_text[text]
-    
-    cache_text[text] = None
-    return cache_text[text]        
+    def shift_gear(self, gear: str | int) -> str:
+        return f'Перемикаємо передачу на: {gear}'
+
+
+if __name__ == "__main__":
+    car1: Car = Car(made="Mazda", model="MC5", year="1916", engine_volume=95.5, fuel_efficiency=30)
+    car2: Car = Car(made="Mazda", model="MC5", year="1916", engine_volume=95.5, fuel_efficiency=30)
+    print(car1 == car2)
+    print(car1)
+    print(repr(car1))

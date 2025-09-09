@@ -1,31 +1,35 @@
 import pytest
 from unittest.mock import patch
 
-from my_module import find_first_unique_char
-import my_module
+from my_module import Car
 
 
-@pytest.mark.parametrize("text,result", [
-    ("abbbccdf", "a"),
-    ("aabbcdeeff", "c"),
-    ("aabbcc", None),
-    ("@@@!!! 2342342", " ")
-    
+@pytest.fixture
+def car() -> Car:
+    return Car(made="Mazda", model="MC5", year="1916", engine_volume=95.5, fuel_efficiency=30)
+
+
+def test_car_str_representation(car):
+    assert car.__str__() == "Автомобіль: 1916 Mazda 30."
+
+
+def test_car_repr(car: Car):
+    assert car.__repr__() == 'Car(made="Mazda", model="MC5", year="1916", engine_volume=95.5, fuel_efficiency=30)'
+
+
+def test_car_eq(car: Car):
+    assert car == car
+
+
+@pytest.mark.parametrize("distance,consumption", [
+    (1, 0.3),
+    (100, 30),
+    (15, 4.5)
 ])
-def test_find_first_unique_char(text, result):
-    assert find_first_unique_char(text) == result
+def test_calculate_fuel_consumption(car: Car, distance, consumption):
+    assert car.calculate_fuel_consumption(distance) == consumption
 
 
-@pytest.mark.parametrize("wrong_text", [
-    None,
-    1,
-    1.3,
-    [],
-    {"e": "error"},
-    ("tuple", ),
-    {1, 2, 3},
-    True,
-])
-def test_find_first_unique_char_with_wrong_input(wrong_text):
-    with pytest.raises(TypeError):
-        find_first_unique_char(wrong_text)
+@pytest.mark.parametrize("gear", ['D', 'R', 'P', 'N', 1, 2, 3, 4, 5])
+def test_shift_gear(car, gear):
+    assert car.shift_gear(gear) == f'Перемикаємо передачу на: {gear}'

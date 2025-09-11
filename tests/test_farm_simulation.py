@@ -11,7 +11,7 @@ def animal() -> Animal:
 def test_animal_make_sound(animal: Animal, capsys):
     animal.make_sound()
     captured = capsys.readouterr()
-    assert captured.out == "Animal Clarence says AAAAAAAAAAAAA\n"
+    assert captured.out == "Animal Clarence says AAAAAAAAAAAAA.\n"
 
 
 def test__str__(animal):

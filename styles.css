@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+form {
+    display: flex;
+    justify-content: center;
+    border: 1px;
+    padding: 3px;
+    flex-direction: column;
+}
+button {
+    padding: 12px;
+    margin: 8px;
+}
+@media screen and (max-width: 768px){
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        font: arial small-caps bold 16px/2 cursive;
+    }
+    form {
+        display: flex;
+        justify-content: center;
+        border: 1px;
+        padding: 6px;
+        flex-direction: column;
+    }
+    button {
+        padding: 24px;
+        margin: 16px;
+    }
+}
+@media screen and (min-width: 768px){
+    body {
+        background-color: green;
+    }
+    h1 {
+        font-size: 40px;
+
+    }
+}

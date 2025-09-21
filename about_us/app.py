@@ -58,11 +58,15 @@ def login_user():
     email = request.form.get('email')
     password = request.form.get('password')
     
-    return f'''
-    <h1>Дані отримано!</h1>
-    <p>Ваш email: {email}</p>
-    <p>Ваш пароль: {password}</p>
-    '''
+    if email == "kozachukkirill81@gmail.com" and password == "1234567890": 
+        return f'''
+        <h1>Дані отримано!</h1>
+        <p>Ваш email: {email}</p>
+        <p>Ваш пароль: {password}</p>
+        '''
+    return '''
+        <h1>Помилкове ім'я або пароль!</h1>
+        '''
 
 if __name__ == '__main__':
     app.run(debug=True)

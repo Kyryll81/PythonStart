@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -6,6 +6,12 @@ posts = [{'id': 1, 'title': 'Перший крок у Flask', 'author': 'Іва�
          {'id': 2, 'title': 'Про що говорять декоратори', 'author': 'Марія', 'content': 'Декоратори - це потужний інструмент...'},
          {'id': 3, 'title': 'Основи роботи з шаблонами Jinja2', 'author': 'Петро', 'content': 'Декоратори - це потужний інструмент...'},
 ]
+
+
+
+@app.get('/')
+def index():
+    return redirect("/blog")
 
 
 @app.get('/blog')

@@ -9,18 +9,24 @@
 <body>
     <div class='container mt-4'>
         <div class='row g-3'>
-            {% for post in posts %}
-                <div class="col-12 col-sm-6 col-md-3">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.content }}</p>
-                        <p class="card-author">{{ post.author }}</p>
-                        <a href="/blog/{{ post.id }}" class="btn btn-primary">Читати далі</a>
-                      </div>
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="card h-100">
+                          <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.content }}</p>
+                            <p class="card-author">{{ post.author }}</p>
+                            <a href="/blog/{{ post.id }}" class="btn btn-primary">Читати далі</a>
+                          </div>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+            <div>
+                <h1>Постів поки немає. Зайдіть пізніше.</h1>
+            </div>
+            {% endif %}
         </div>
     </div>
 </body>

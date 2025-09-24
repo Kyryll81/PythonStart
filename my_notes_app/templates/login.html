@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизація</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+    <form action="/login" method="POST">
+          <div class="mb-3">
+            <label for="username" class="form-label">Введіть логін: </label>
+            <input type=text class="form-control" name="username" id="username" placeholder="username">
+        </div>
+        
+        <div class="mb-3">
+            <label for="password" class="form-label">Введіть пароль: </label>
+            <input type=password class="form-control" name="password" id="password" placeholder="*********">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Увійти</button>
+    </form>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+
+</script>
+</html>

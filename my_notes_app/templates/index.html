@@ -8,7 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Вітаю, {{ username }}</h1>
             <a href="/add" class="btn btn-outline-dark">Додати нову нотатку</a>
         </div>
         <div class="row">
@@ -32,6 +33,9 @@
                     </div>
                 </div>
             {% endfor %}
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="/logout" class="btn btn-outline-dark">Вийти</a>
         </div>
     </div>
 </body>

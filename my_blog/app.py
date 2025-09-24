@@ -15,7 +15,10 @@ def index():
 
 
 @app.get('/blog')
+@app.get('/empty-blog')
 def show_blog_list():
+    if request.path == '/empty-blog':
+        return render_template('blog_list.html', posts=[])
     return render_template('blog_list.html', posts=posts)
 
 

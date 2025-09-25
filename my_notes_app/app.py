@@ -6,11 +6,13 @@ from flask import (Flask, render_template, request, redirect,
 
 from dotenv import load_dotenv
 
+from forms import LoginForm
+
 load_dotenv()
 
 app = Flask(__name__)
 
-app.secret_key = environ["FLASK_SECRET_KEY"]
+app.config['SECRET_KEY'] = environ['FLASK_SECRET_KEY']
 
 notes = [
     {'id': 1, 'title': 'Перша нотатка', 'content': 'Це моя перша нотатка.'},
@@ -22,8 +24,8 @@ next_id = 3
 
 @app.get('/')
 def index():
-    if "username" in session:
-        return render_template('index.html', notes=notes, username=session['username'])
+    if "email" in session:
+        return render_template('index.html', notes=notes, username=session['email'])
     return redirect(url_for('login'))
 
 
@@ -82,25 +84,24 @@ def add_note():
     return redirect(url_for('index'))
 
 
-@app.get('/login')
-def login_form():
-    return render_template('login.html')
-
-
-@app.post('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    login_data: tuple[str | None, str | None] = (request.form.get("username"), request.form.get("password"))
-    correct_data: tuple[str | None, str | None] = (getenv("username"), getenv("password"))
-    if login_data == correct_data:
-        session["username"] = login_data[0]
-        resp = make_response(redirect(url_for('index')))
-        resp.set_cookie(
-            "last_login",
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        )
-        return resp
+    form = LoginForm()
+    if form.validate_on_submit():
+        login_data: tuple[str | None, str | None] = (request.form.get("email"), request.form.get("password"))
+        correct_data: tuple[str | None, str | None] = (getenv("email"), getenv("password"))
+        if login_data == correct_data:
+            session["email"] = login_data[0]
+            resp = make_response(redirect(url_for('index')))
+            resp.set_cookie(
+                "last_login",
+                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            )
+            return resp
+        
+        return redirect(url_for('index'))
     
-    return redirect(url_for('index'))
+    return render_template("login.html", form=form)
 
 
 @app.get('/logout')

@@ -2,7 +2,7 @@ from os import getenv, environ
 from datetime import datetime
 
 from flask import (Flask, render_template, request, redirect, 
-                   url_for, session, make_response)
+                   url_for, session, make_response, jsonify)
 
 from dotenv import load_dotenv
 
@@ -107,6 +107,22 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+
+@app.get('/contact')
+def contact_form():
+    return render_template('contact_form.html')
+
+
+@app.post('/submit_feedback')
+def submit_feedback():
+    data: dict = {
+        "name": request.form.get("name"),
+        "email": request.form.get("email"),
+        "message": request.form.get("message"),
+    }
+    
+    return jsonify(data)
 
 
 if __name__ == '__main__':

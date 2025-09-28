@@ -8,17 +8,25 @@
 </head>
 <body>
     <form action="/login" method="POST">
+        {{ form.hidden_tag() }}
+
         <div class="mb-3">
-            <label for="username" class="form-label">Введіть логін: </label>
-            <input type=text class="form-control" name="username" id="username" placeholder="username">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }}
+            {% for error in form.email.errors %}
+                <span class="text-danget">{{ error }}</span>
+            {% endfor %}
         </div>
         
         <div class="mb-3">
-            <label for="password" class="form-label">Введіть пароль: </label>
-            <input type=password class="form-control" name="password" id="password" placeholder="*********">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control") }}
+            {% for error in form.email.errors %}
+                <span class="text-danget">{{ error }}</span>
+            {% endfor %}
         </div>
         
-        <button type="submit" class="btn btn-primary">Увійти</button>
+        {{ form.submit(class="btn btn-primary mt-3") }}
     </form>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">

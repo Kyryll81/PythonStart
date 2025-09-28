@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+  <div class="container my-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h3">Add Grade</h1>
+      <a href="/" class="btn btn-secondary">Back to List</a>
+    </div>
+
+    <!-- Form card -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form action=
+              {% if request.path == "/add" %} 
+                  "/add" 
+              {% else %} 
+                  "/edit/{{ record_id }}"
+              {% endif %} 
+              method="post">
+              
+          {{ form.hidden_tag() }}
+          
+          <!-- Subject -->
+          <div class="mb-3">
+            {{ form.subject.label(class="form-label", placeholder="Enter subject") }}
+            {{ form.subject(class="form-control") }}
+          </div>
+
+          <!-- Teacher -->
+          <div class="mb-3">
+            {{ form.teacher.label(class="form-label") }}
+            {{ form.teacher(class="form-control")}}
+          </div>
+
+          <!-- Grade -->
+          <div class="mb-3">
+            {{ form.grade.label(class="form-label") }}
+            {{ form.grade(class="form-control") }}
+          </div>
+
+          <!-- Date -->
+          <div class="mb-3">
+            {{ form.date.label(class="form-label") }}
+            {{ form.date(class="form-control") }}
+          </div>
+
+          <!-- Submit -->
+          <div class="d-flex justify-content-end">
+            {{ form.submit(class="btn btn-success") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

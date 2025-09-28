@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Grades summary{% endblock %}
+
+{% block body %}
+  <div class="container my-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h3">Grades</h1>
+      <a href="/add" class="btn btn-success">Add Grade</a>
+    </div>
+
+    <!-- Grades table -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <table class="table table-striped table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Teacher</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Date</th>
+              <th scope="col" class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in records %}
+                <tr>
+                  <th scope="row">{{ record.id }}</th>
+                  <td>{{ record.subject }}</td>
+                  <td>{{ record.teacher }}</td>
+                  <td>{{ record.grade }}</td>
+                  <td>{{ record.date }}</td>
+                  <td class="text-center">
+                    <a href="/edit/{{ record.id }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form method="post" action="{{ url_for('delete_record_view', record_id=record.id) }}" class="d-inline">
+                      <button type="submit" class="btn btn-danger btn-sm"
+                              onclick="return confirm('Are you sure for deleting note?')">
+                              Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

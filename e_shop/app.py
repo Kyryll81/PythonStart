@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 
-from db import list_products, add_product, Product, db
+from db import Product, db
 db.init_app(app)
 
 import routes

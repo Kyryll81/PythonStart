@@ -1,39 +1,40 @@
 from os import environ, getenv
 
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask
 
 from dotenv import load_dotenv
 
 from form import ProductForm
-from db import list_products, add_product
+from config import Config
+
 
 load_dotenv()
 
 app = Flask(__name__)
-
-app.config["SECRET_KEY"] = environ["FLASK_SECRET_KEY"]
-
-
-@app.get('/')
-def list_products_view():
-    title: str = 'Products'
-    products: list = list_products()
-    return render_template('index.html', title=title, products=products)
+app.config.from_object(Config)
 
 
-@app.route('/add', methods=['GET', 'POST'])
-def add_product_view():
-    title: str = 'Add product'
-    form = ProductForm()
-    
-    if form.validate_on_submit():
-        product: tuple = (
-            max(map(lambda l: l[0], list_products())) + 1, 
-            request.form['name'], 
-            request.form['price'], 
-            request.form['stock']
-            )
-        add_product(product)
-        flash("Product successfully added!", "success")
-        return redirect(url_for('list_products_view'))
-    return render_template('form.html', title=title, form=form)
+from db import list_products, add_product, Product, db
+db.init_app(app)
+
+import routes
+routes.init_routes(app, db)
+
+
+with app.app_context():
+    db.create_all()
+    pd_1 = Product(name="ESP32", price=300.0, stock=30)
+    pd_2 = Product(name="ESP8266", price=50.0, stock=12)
+    pd_3 = Product(name="Граната свята Анітохійська", price=99999.99, stock=3)
+    pd_4 = Product(name="Грааль святий", price=1000, stock=1)
+    pd_5 = Product(name="Моє почуття гумору", price=0.0, stock=0)
+    db.session.add_all([pd_1, pd_2, pd_3, pd_4, pd_5])
+    product = db.session.get(Product, 1)
+    if product:
+        product.price = 500.0
+    db.session.query(Product).filter(Product.stock < 5).delete()
+    db.session.commit()
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5005)

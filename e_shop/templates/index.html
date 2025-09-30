@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+  <div class="container py-4">
+    <h1 class="mb-4 text-center">Products</h1>
+
+    <div class="d-flex justify-content-end mb-3">
+      <a href="/add" class="btn btn-primary">+ Add Product</a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col" class="text-center">Count</th>
+          </tr>
+        </thead>
+        <tbody>
+           {% for product in products %}
+            <tr>
+                <td>{{ product[0] }}</td>
+                <td>{{ product[1] }}</td>
+                <td class="fw-bold">{{ product[2] }}</td>
+                <td class="text-center">{{ product[3] }}</td>
+            </tr>
+           {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock  %}

@@ -23,10 +23,10 @@
         <tbody>
            {% for product in products %}
             <tr>
-                <td>{{ product[0] }}</td>
-                <td>{{ product[1] }}</td>
-                <td class="fw-bold">{{ product[2] }}</td>
-                <td class="text-center">{{ product[3] }}</td>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td class="fw-bold">{{ product.price }}</td>
+                <td class="text-center">{{ product.stock }}</td>
             </tr>
            {% endfor %}
         </tbody>

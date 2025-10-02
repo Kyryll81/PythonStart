@@ -29,8 +29,4 @@ def delete_record(record: Record) -> bool:
     records.remove(record)
     with open('journal.json', 'w') as file:
         json.dump(list(map(lambda r: r.model_dump(), records)), file)
-        return True
-
-    
-
-    
+        return True    

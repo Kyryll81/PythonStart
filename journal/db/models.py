@@ -13,6 +13,6 @@ class Record(db.Model):
     subject: Mapped[str] = mapped_column(String(50), nullable=False)
     teacher: Mapped[str] = mapped_column(String(50), nullable=False)
     grade: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
-    date: Mapped[datetime] = mapped_column(Date, nullable=False, default=datetime.now())
+    date: Mapped[datetime] = mapped_column(Date, nullable=False, default=datetime.today)
 
 

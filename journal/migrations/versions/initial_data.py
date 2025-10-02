@@ -14,21 +14,21 @@ from datetime import datetime
 
 # revision identifiers, used by Alembic.
 revision = 'initial_data'
-down_revision = None
+down_revision = '2f5425a94817'
 branch_labels = None
 depends_on = None
 
 
 def upgrade():
     with Session(bind=op.get_bind()) as session:
-        with app.app_context():
-            # Додавання початкових даних
-            r_1 = Record(subject="Programing", teacher="Toravalds", grade=95, date=datetime.now())
-            r_2 = Record(subject="Test second subject", teacher="Teacher f", grade=22, date=datetime.now())
-            r_3 = Record(subject="Math", teacher="Skinner!", grade=100, date=datetime.now())
-            r_4 = Record(subject="Test", teacher="Test", grade=30, date=datetime.now())
-            session.add_all([r_1, r_2, r_3, r_4])
-            session.commit()
+        bind = op.get_bind()
+        session = Session(bind=bind)
+        r_1 = Record(subject="Programing", teacher="Toravalds", grade=95, date=datetime.utcnow)
+        r_2 = Record(subject="Test second subject", teacher="Teacher f", grade=22, date=datetime.utcnow)
+        r_3 = Record(subject="Math", teacher="Skinner!", grade=100, date=datetime.utcnow)
+        r_4 = Record(subject="Test", teacher="Test", grade=30, date=datetime.utcnow)
+        session.add_all([r_1, r_2, r_3, r_4])
+        session.commit()
 
 def downgrade():
     # Тут ви можете додати логіку для видалення даних, якщо це потрібно

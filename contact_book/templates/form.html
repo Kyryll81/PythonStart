@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block body %}
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+  <div class="card shadow-lg p-4" style="width: 400px;">
+    <h3 class="text-center mb-4">User Form</h3>
+
+    <form action={% if request.path == "/create" %}
+                    "/create" 
+                {% else %}
+                    "/update/{{ contact_id }}"
+                {% endif %} 
+          method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+            {% for error in form.email.errors %}
+                <span class="text-danget">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="mb-3">
+            {{ form.phone.label(class="form-label") }}
+            {{ form.phone(class="form-control") }}
+            {% for error in form.email.errors %}
+                <span class="text-danget">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        
+        <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }}
+            {% for error in form.email.errors %}
+                <span class="text-danget">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        {{ form.submit(class="btn btn-primary w-100") }}
+    </form>
+  </div>
+</body>
+{% endblock  %}

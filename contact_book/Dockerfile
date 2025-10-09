@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD [ "flask" "db" "upgrade && gunicorn", "--bind", "0.0.0.0:10000", "app:app" ]
+CMD ["sh", "-c", "flask db upgrade && gunicorn --bind 0.0.0.0:10000 app:app"]
